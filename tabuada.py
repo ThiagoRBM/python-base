@@ -3,8 +3,7 @@
 seq=range(1,11)
 
 for i in seq:
-	print("-"*3 + "Tabuada do " + str(i) + "-"*3)
+	print(f"{'-'*4} Tabuada do {i} {'-'*4}\n")
 	for x in seq:
-		print("{:^19}".format(f"{i:03d} x {x:03d} = {i*x:03d}"))
-	print("#" * 19)
-	print("\n")
+		print("{:^25}".format(f"{i:03d} x {x:03d} = {i*x:03d}"))
+	print("#" * 25 + "\n")
