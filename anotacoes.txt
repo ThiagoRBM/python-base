@@ -1,0 +1,511 @@
+#################### DIA 1
+####################
+####################
+aula linguagens de programacao:
+linguagens compiladas (como rust e C) precisam ser compiladas para diferentes plataformas (windows, android, linux, etc). Linguagens interpretadas (como python) geralmente são multiplataformas.
+
+aula como esta organizada a plataforma python
+Python Language Reference (PLR) descricao da linguagem em um documento. A partir desse documento foram criadas várias implementacoes (e.g. IronPython, Jython, PyPy, Stackless Python, etc). CPython é a implementação oficial, criada pelo próprio criador da linguagem (Guido). Python Software Foundation (PSF) é uma fundação que protege o uso da marca python, com código de conduta que precisa ser seguido para quem quer usar a "marca", mas python é open source e código aberto. Empresas podem se filiar a PSF e fazer doações para a linguagem crescer, mas não são donas dele.
+
+aula 3
+comando: python -m site
+mostra onde o python busca os pacotes quando importamos e outras informações que podem ser úteis.
+
+aula 5
+starship: plugin para o terminal (nao instalei)
+terminator: plugin para terminal (esse eu instalei)
+micro: editor de texto (nao instalei)
+boas práticas: no começo do script colocar shebang especificando o ambiente e o interpretador (e.g. #!usr/bin/env python3). Para pegar o endereço do pytho: digitar which python
+=====> por volta dos 40 minutos da aula, Bruno fala que é bom especificar o ambiente porque o script pode acabar rodando em um lugar diferente. Mas aí se o env não está especificado, o que acontece? O meu ambiente não vai ser reproduzido no outro lugar que o script rodar, vai? O que acontece é que as variáveis de ambiente do local que o script rodar vão ser exportadas e não as minhas.
+Colocando a shebang no início do script, dá para rodar ele sem especificar o "python3" no começo: ./script.py (atenção, que o arquivo tem que ter permissão para executar)
+Ferramenta que mostra alterações coloridas em arquivos git (git diff): delta
+
+aula 6
+guia de estilo python PEP8 (pep8.org)
+if __name__ == "__main__"
+	funcao
+verifica se o comando está sendo rodado em terminal. Se não estiver, o __name__ será diferente.
+
+Aula 10 ambientes virtuais e IPython
+=====> cada projeto em um ambiente virutal separado, mas aí eu terei várias bibliotecas iguais repetidas no computador, uma para cada ambiente?
+A venv copia as bibliotecas, interpretadores e etc (que podem ser vistos com o comando python -m site para a pasta criada com o comando.
+A convencao é chamar a pasta criada com venv de .venv
+Para usar a venv, é preciso ativar primeiro, com source .venv/bin/activate
+Conferir que estamos no venv: which python
+Quando se cria uma venv, é comum fazer o upgrade do python: python -m pip install --upgrade pip 
+
+
+#################### DIA 2
+####################
+####################
+####################
+####################
+
+aula 1 tipo de dados e inteiros
+Um objeto tem: 1. um endereço na memória, acessado com id(objeto).
+2. Um tipo, classe, acessado com type(objeto)
+3. Um valor em binário (bin (objeto)) e o valor que usamos
+Em binário, o número 65 tem o mesmo valor da letra "A", mas através do TIPO do objeto o computador (python) conseque saber o que queremos.
+"através do tipo que transformamos dado em informação".
+
+Dados primários (ou scalar types):
+
+--int (para ver "protocolos" dos objetos, chamar dir(objeto), e.g. dir(int))
+	int__add__(1) mesma coisa que int + 1
+	int__gt__(X) mesma coisa que comparacao int > X
+	int__eq__(Y) mesma coisa que comparacao int == Y
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 2 tipos float, bool NoneType
+float.__add__(3.5 , 1) mesma coisa que 3.5 + 1
+Para valores monetários na "vida real" não usar float e sim "Decima", "Currency", porque a precisão de float não é adequada para esses casos.
+Qualquer valor numerico > 0 é True.
+NoneType só tem um valor: None. E.g. nome = None (a variável exite, mas fica sem valor).
+Singleton = objetos que só podem ser criado s uma vez durante a execução do código. None é um objeto singleton.
+Range em python é não inclusivo, então precisa ser o valor final + 1.
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 3 textos caracteres encoding e strings
+A informática começou com a tabela ASCII, mas ela não comportava muito caracteres. Então a utf8 foi criada e ela consegue armazenar os caracteres de todas as línguas e ainda outros, como emojis.
+Caso se queira trabalhar com uma tecnologia que não aceite utf8, mas os dados contenham simbolos / caracteres em utf8, é preciso fazer a serialização.
+A serialização transforma em representação em texto um símbolo utf8 por exemplo com hexadecimal.
+Para isso existe a funcao objeto.encode("utf-8"). Ela transforma o simbolo em uma representacao que so tenha caracteres da tabela ASCII. Para fazer o caminho reverso, se usa o comando objeto.decode().
+exemplo: cobra= b'\xf0\x9f\x90\x8d' (o b é de "binário")
+		 decoded= cobra.decode()
+		 decoded.encode("utf-8")
+
+Para ver a representacao em bytes de uma str, pode usar bytes(str), e.g. bytes("thiago","utf-8). E usando list(bytes("thiago","utf-8")), uma lista com a representacao em bytes da str é gerada.
+nome=list(bytes("THIAGO", "utf-8"))
+[chr(i) for i in nome]
+Qualquer objeto que tenha __iter__ entre os métodos é iterável (aceita "for").
+nome= "Thiago"
+iterador= nome.__iter__()
+next(iterador)
+
+Objetos iteraveis podem ser mostrados com uma lista. E.g. reversed("thiago")
+list(reversed(thiago))
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 4 formatacao de textos
+
+#concatenação:
+nome = "thiago"
+profissao= "biologia"
+gosto= "programacao"
+formatura= 2010
+nome + " é formado em " + profissao + " e gosta de " + gosto + ". Se formou em " + str(formatura)
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+#interpolação:
+template= "%s é formado em %s e gosta de %s. Se formou em %d"
+template % (nome, profissao, gosto, formatura)
+"Olá, %s" % "thiago"
+"%s é formado em %s e gosta de %s. Se formou em %d" % (nome, profissao, gosto, formatura)
+
+numero= 2.5
+"cinco dividido por 2 é %f" % numero
+"cinco dividido por 2 é %.2f" % numero ## para diminuir as casas deicmais
+
+numero= 1
+"primeiro é %d" % numero
+"primeiro é %03d" % numero ## formatando numero de zeros a esquerda
+
+Para muitos valores para interpolar, dicionários podem ser usados ao invés dos parênteses e os objetos podem ser nomeados:
+"%(nome)s é formado em %(profissao)s e gosta de %(gosto)s. Se formou em %(formatura)d" % {"nome" : nome, "profissao" : profissao, "gosto" : gosto, "formatura" : formatura}
+
+Outro exemplo:
+nomes= ["Dayane", "Thiago"]
+profissao= ["historia", "biologia"]
+for nome in range(len(nomes)):
+	print("%(pessoa)s é formado(a) em: %(formacao)s" % {"pessoa" : nomes[nome], "formacao" : profissao[nome]})
+
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+# format string
+
+nomes= ["Dayane", "Thiago"]
+profissao= ["historia", "biologia"]
+tempo= [4, 10]
+for nome in range(len(nomes)):
+	msg= "{} é formado(a) em: {} e tem {:02d} anos de estudo" 
+	print(msg.format(nomes[nome], profissao[nome], tempo[nome]))
+
+for nome in range(len(nomes)):
+	msg= "{nome} é formado(a) em: {prof} e tem {tempo:02d} anos de estudo" 
+	print(msg.format(nome= nomes[nome], prof= profissao[nome], tempo= tempo[nome]))
+
+
+## formatando o texto na tela (centralizando, deixando a esquerda, etc)
+"{:^20}".format("thiago")
+"{:<20}".format("thiago")
+"{:>20}".format("thiago")
+"{:-^20}".format("thiago")
+"{:*^20}".format("thiago")
+"{:~^20}".format("thiago")
+"{:^20.3}".format("thiago")
+"{:.^20.3}".format("thiago") ## essas coisas funcionam para numeros tambem
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+# f-strings
+# o que foi mostrado acima de formatação (centralizao e etc) continua funcionando
+nomes= ["Dayane", "Thiago"]
+
+
+profissao= ["historia", "biologia"]
+for nome in range(len(nomes)):
+	print(f"{nomes[nome]} é formado(a) em: {profissao[nome]}")
+
+nomes= ["Dayane", "Thiago"]
+profissao= ["historia", "biologia"]
+tempo= [4, 10]
+for nome in range(len(nomes)):
+	print(f"{nomes[nome]} é formado(a) em: {profissao[nome]} e tem {tempo[nome]:02d} anos de estudo") 
+
+### para imprimir emojis:
+## é só colocar o prefixo "\U000" mais o código unicode de algum emoji
+print("\U0001F43C")
+
+## outro jeito é substituir o \U000 por \N{nome do emoji}, os nomes são padronizados em tabela unicode.
+## \N vem de "nome"
+print("\N{panda face}")
+print("\N{ant}")
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 5 tipos compostos e dados
+1. tuple
+tuplas são acessadas pelo índice.
+tuplas são iteráveis.
+tuplas são imutáveis, não tem como alterar (adicionar ou remover elementos).
+
+variavel= "thiago", 1988, 3.5, True, None
+# ou
+variavel= ("thiago", 1988, 3.5, True, None)
+dir(type(variavel))
+dados.count("thiago")
+dados.count("joana")
+dados[-1]
+
+desempacotamento de tuplas:
+variavel= ("thiago", 1988, "biologo")
+nome= variavel[0]
+ano= variavel[1]
+profissao= variavel[2]
+# mesma coisa que:
+nome, ano, profissao =variavel
+# para pegar apenas um elemento
+nome,*resto=variavel
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 6 listas 
+listas são comparáveis (apesar de não ser exatamente iguais) a arrays e vetores em outras linguagens.
+
+#criar lista vazia
+variaveis= [] ## maneira preferível e mais comum de fazer ("maneira literal")
+variaveis= list()
+
+#listas podem ser criadas vazias porque são objetos mutáveis
+variaveis.append("thiago") ## append vai sempre para o final
+variaveis.insert(0, "outra pessoa") ## insere a variáveil na posição X
+variaveis.remove("outra pessoa") ## remove elemento da lista
+# listas também aceitam desempacotamento
+variaveis=["thiago",1988,"Biologo"]
+nome,ano,profissao=variaveis
+#listas (assim como tuplas), são adicionáveis:
+variaveis2= ["paula","milene"]
+variaveis + variaveis2
+#para atualizar uma lista juntando outra lista, existe por exemplo o metodo extend
+variaveis
+variaveis.extend(variaveis2)
+#caso uma lista tenha algum valore repetido e se use o metodo .remove, a primeira ocorrencia e removida
+variaveis.append("thiago"  )
+variaveis.count("thiago")
+variaveis.remove("thiago")
+variaveis.count("thiago")
+#tanto tuplas quanto listas tem o método .__contains__
+variaveis.__contains__("thiago") # que é a mesma coisa que:
+"thiago" in variaveis
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 7 exercicio listas, tuplas, loops e condicionais
+arquivo escola.py
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 8 sets e a teoria dos conjuntos
+
+# set = conjunto
+
+c1={1,2,3} # facilmente confundida com dicionario ou tupla
+type(c1)
+
+# jeito preferencial:
+c1=set(1,2,3)
+c1=set([1,2,3])
+
+dri(set)
+
+# sets nao aceitam repeticao
+# set é um jeito de removaer duplicados de listas, é só colocar ela em um set
+c1= set("banana")
+c1
+
+c1= [1,2,3,4,5]
+c2= [3,4,5,6,7]
+
+## união entre conjuntos
+c3= set(c1) | set(c2)
+c3= set(c1).union(c2)
+c3= set(c1 + c2)
+
+## intersecao entre conjuntos
+c3= set(c1).intersection(set(c2))
+c3= set(c1) & set(c2)
+
+## diferenca entre conjuntos
+c3= set(c1) - set(c2) ## o que está no conjunto 1 e não está no 2
+c3= set(c1).difference(set(c2)) ## o que estão no conjunto 1 e não está no 2
+
+c4= set(c2) - set(c1) ## o que está no conjunto 2 e não está no 1
+c3= set(c2).difference(set(c1)) ## o que está no conjunto 2 e não está no 1
+
+## diferença simétrica 
+# elementos que estão só no conjunto 1 e elementos que estão só no 2
+
+c3= set(c1).symmetric_difference(set(c2))
+c3= set(c1) ^ set(c2)
+
+# set aceitam que elementos sejam colocados:
+c1= set()
+c1.add(1)
+c1.add(2)
+c1.add(3)
+
+c1.add(1)
+c1.add(1)
+c1.add(1)
+c1.add(1)
+c1.add(1) ### sets só aceitam elementos únicos, então esses outros valores não serão adicionados a ele
+
+## sets aceitam hash table
+# exemplo:
+
+numeros= [1,2,4,5,3,2,5,6,7,3,5,6,7,4]
+1 in numeros
+8 in numeros
+6 in numeros ## dessa maneira, a comparacao é feita elemento a elemento e caso existam muitos elementos, a performance fica ruim.
+# notação: O(n) ("big O", depende do número de elementos)
+
+## se a mesma operação for feita em um set, primeiramente os duplicados
+## já são removidos e a Hash table ainda armazena um "mapa" de onde estão os elementos. Isso faz com que a notação "big O" seja 1: O(1), independe do tamanho do set e as buscas em objetos grandes são muito mais rápidas.
+
+numeros= set([1,2,4,5,3,2,5,6,7,3,5,6,7,4])
+1 in numeros
+8 in numeros
+
+## Quando não usar set. Valores duplicados, ordens não são mantidas e sets não aceitam fatiamento (e.g. numeros[0])
+
+### exercicio: escola_v1_set.py 
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 9 dicionários
+Em tuple, list, ser e str, apenas 1 valor é armazenado em cada posição
+Dicionário é como se fosse a união entre list e set:
+	São mutáveis
+	São iteráveis
+	Implementam as hash tables (o que torna as buscas muito mais rápidas e estão implementadas nos sets)
+	Não aceitam key / chaves duplicadas (como no set)
+	Guardam 2 informações por posição (key/chave : value/valor)
+
+#criacao:
+obj= {key : value} ## aceita número como key, sets podem ser criados com set={valor1, valor2}, a diferença para o dict é que no dict tem ":" ao invés de vírgula
+obj= dict(key= value) ## nessa forma parece não aceitar número como key. Skey fica sem aspas, value com aspas se for chr, se número, sem aspas
+
+obj= {"nome" : "thiago", "profissao" : "biologo", "nascimento" : 1988}
+len(obj) ## conta o número de keys
+del(obj["key"]) ## delete o key
+nome in obj ## procura pela key no dicionário, usando a hashtable
+## caso se queira prourar pelo valor, não é tão simples e tão rápido
+## teria que ser feito por comparação (e.g. for x in dict)
+
+obj.keys()
+obj.values()
+
+for i,key in enumerate(obj.keys()):
+	print(i,key)
+	print(obj.get(key))
+
+
+obj.items() ## mostra key : value no formato de tupla
+for i,key in enumerate(obj.items()):
+	print(i, key)
+
+obj.update({"hobby" : "programacao"}) ## adicionar key em dicionario
+obj["planta"]= "Mabea fistulifera" ## adicionar key a dicionario
+extra= {"bicho" : "Oxytrigona tataira"}
+novoDict= {**obj, **extra} ## criando um novo dicionário que é a junção de outros
+## o desempacotamento de dicionários, como em {**obj, **extra} é parecido com outros, como com o de listas [*ls, *ls2], mas tem dois asteriscos porque o desempacotamento é de 2 elementos por posição, em lista é 1 asterisco porque é com 1 elemento por posição.
+
+### para printar coisas complexas (como dicionários) no terminal:
+import ppaarint
+pprint.pprint(novoDict)
+
+## com dicionários o método dict.get retorna objeto None caso a chave não exista, é possível colocar um valor default para ser retornado:
+novoDict.get("cidade")
+novoDict.get("cidade", "brasilia")
+## caso se procure pelo key usando a notação [] e o key não exista, o python retorna um erro
+novoDict["cidade"]
+
+## dicionários são muito usados no python. A classe int é um dicionário
+int.__dict__
+## existe um dicionário de funções (builtin) no python, que são armazenadas com nome da funcao : funcao:
+__builtins__.__dict__
+__builtins__.__dict__["print"]("hello")
+
+## exercicio: escola_v1_dict.py
