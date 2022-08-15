@@ -509,3 +509,66 @@ __builtins__.__dict__
 __builtins__.__dict__["print"]("hello")
 
 ## exercicio: escola_v1_dict.py
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+##############################################################################################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+DIA 3
+
+aula 1 Standard Input & Output e argumentos do CLI
+
+#bios: Basic Input Output System. Principal tarefa: inicializar os componentes do sistema e inicia o boot.
+#CPU carrega o SO do HD para a memória RAM. CPU então avisa o STDOUT. Cada programa tem um shell (espaço isolado) e um STDOUT, que pode se comunicar com um monitor, um alto falante e etc.
+#No modulo sys permite interagir com componentes do sistema.
+
+import sys
+sys.platform ## ver qual o sistema operacional
+dir(sys)
+sys.stdout ## mostra o que está no stdout. Espera receber texto (type sys.stdout)
+sys.stdout.write("Hello World") ## ele retorna o texto e quantos caracteres tem no que foi passado. O comando print por padrão "printa" usa o sys.stdout, uma "abstração".
+
+print? #digitar no ipython
+# manipular o que o print usa (ao invés do sys.stdout) para colocar em um arquivo .txt:
+print("salvar no arquivo pelo print", file=open("stdout.txt","a")) ## vai salvar no diretório ao invés de "printar" na tela.
+## o que é colocado no print está no modo append ("a") e o linux tem um comando que fica escutando e lendo um arquivo (abrir o ipython em um terminal para mandar os prints e rodar o comando do linux em outro):
+tail -f stdout.txt
+print("ouvindo", file=open("stdout.txt","a"))
+print("continua ouvindo", file=open("stdout.txt","a"))
+
+stdin: pega informações do stdout.
+sys.stdin ## ao invés do método write, tem o método read
+# assim como o print é abstração do sys.stdout, o sis.stdin tem uma abstração: a função input
+nome= input("Qual o seu nome?") ## digitar resposta
+nome ## a resposta será salva na variável caso tenha sido atribuida.
+## o comando input serve para caso em que haja interação com usuário, ser for para ler inforações vindas de outras fontes, existem outras funções.
+## input só sabe ler TEXTO.
+
+## CLI args (command line arguments) são uma forma de ler inputs de usuários
+
