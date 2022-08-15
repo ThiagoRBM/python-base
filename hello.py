@@ -28,7 +28,7 @@ else:
     current_language= args["lang"]
 
 #print(current_language)
-#print(args["--count"])
+#print(args["count"])
 
 if args["count"] == None:
     #print("aqui")
@@ -49,4 +49,4 @@ msg= {"en_US" : "Hello, World!",
 
 mensagem= f"{msg[current_language]}\n"
 
-print(f"{mensagem * int(count)}")
+print(f"{mensagem * count}")
