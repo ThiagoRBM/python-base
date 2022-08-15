@@ -30,7 +30,7 @@ else:
 #print(current_language)
 #print(args["count"])
 
-if args["count"] == None:
+if args["count"] is None:
     #print("aqui")
     count = 1
 else:
