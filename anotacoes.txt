@@ -524,7 +524,7 @@ __builtins__.__dict__["print"]("hello")
 #######################################################################
 #######################################################################
 #######################################################################
-##############################################################################################################################################
+#######################################################################
 #######################################################################
 #######################################################################
 #######################################################################
@@ -572,3 +572,115 @@ nome ## a resposta será salva na variável caso tenha sido atribuida.
 
 ## CLI args (command line arguments) são uma forma de ler inputs de usuários
 
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 2 manipulando arquivos e pastas
+
+linux
+. = diretório atual
+.. = diretório anterior
+touch = arquivos vazios
+echo "linha" >> caminho do arquivo.txt = adicionar linha em arquivo txt
+
+# no python, para ter métodos de sistema de arquivos
+
+import os
+
+os.listdir(".") ## arquivos e pastas do diretório atual
+os.mkdir("pasta/subpasta") ## cria pasta, se alguma das pastas existir, o comando dá erro
+os.makedirs("pasta/subpasta",exist_ok=TRUE) ## ignora o erro se a pasta já existir. Ele faz com que, caso a pasta exista, nada aconteça, se não existir, seja criada
+os.path.join("pasta", "subpasta") ## é recomendado para criar caminhos, porque windows e sistemas unix usam barras diferentes para acessar os arquivos. Ela reconhece o separador de pastas automaticamente
+os.curdir ## é recomendado ao invés de os.listdir(".") porque o sistema operacional pode usar outro símbolo para o diretório corrente (pwd) e essa função resolve isso automaticamente.
+os.mknod(os.path.join(path,"nome do arquivo.txt")) ## cria um arquivo no diretório selecionado
+
+
+os.mknod(os.path.join(os.curdir,"arquivo.txt")) ## criando o arquivo para exemplo da aula.
+
+path= os.curdir ## boa prática ter variáveis para cmainho da pasta e caminho do arquivo
+filepath= os.path.join(os.curdir,"arquivo.txt") ## boa prática ter variáveis para cmainho da pasta e caminho do arquivo
+pathCompleto= os.path.abspath(filepath) ## pego o caminho absoluto
+
+## para colocar coisas dentro do arquivo criado, é preciso criar um "file descriptor":
+
+open(pathCompleto) ## por padrão abre no modo leitura ("mode= r")
+
+arquivo= open(pathCompleto) ## coloco numa variável e posso interagir com ela
+
+arquivo.read() ## ainda está vazio
+
+arquivo.write() ## se tento adicionar algo com o objeto no modo leitura, dá erro
+
+arquivo= open(pathCompleto, "w") ## abrindo no modo escrita
+arquivo.write("thiago\n") ## adicionando linha com quebra no final para não juntar as linhas em um única string
+arquivo.close() ## fechando o arquivo depois de escrever. Obrigatório fazer isso para evitar problemas
+arquivo.read()
+arquivo= open(pathCompleto, "r") ## abrindo o arquivo novamente em modo leitura
+arquivo.read() ## verificando o conteúdo
+arquivo.read() ## segunda vez abrindo o arquivo em modo leitura dá resultado vazio, mas não é bug. A função consome o conteúdo do arquivo para ser possível voltar de onde algum comando parou. Uma das formas de contornar iso é abrir o arquivo novamente no modo leitura.
+
+## IMPORTANTE: toda vez que abrimos um arquivo no modo "w",  conteúdo é todo subtituido.
+# se não quier substituir, abrir no modo "a" (append):
+arquivo= open(pathCompleto, "a")
+arquivo.write("R B M")
+arquivo.close()
+open(pathCompleto).read()
+print(open(pathCompleto).read())
+
+### no modo descrito acima é sempre necessário usar o arquivo.clode()
+### com o context manager isso é resolvido
+
+with open(pathCompleto, "a") as arquivo:
+	## with cria um objeto "especial" em alguns casos
+	arquivo.write("context manager\n")
+	arquivo.write("hello world\n")
+	## quando saímos desse bloo de código o arquivo é fechado automaticamente
+print(open(pathCompleto).read())
+
+## uma forma prática de adicionar linha a um arquivo é usando o print (e nesse caso a quebra de linha é adicionada automaticamente):
+print("adicionado com print", file=open(pathCompleto, "a"))
+
+## caso for passar uma lista para um arquivo, uma opção é com o context manager fazer um loop linha a linha, mas existe a funcao arquivo.writelines:
+lista= ["abelha\n",
+		"planta\n",
+		"caracol\n"]
+filepath= os.path.join(os.curdir,"lista.txt")
+
+with open(filepath,"a") as arquivo:
+	arquivo.writelines(lista)
+
+print(open(filepath).read())
+open(filepath).readlines() ## ler linha a linha do arquivo em uma lista
+
+### o python 3 tem outra biblioteca para manipular essas funcoes
+### essa biblioteca é mais próxima da orientação a objetos
+
+from pathlib import Path
+Path("pasta") ## retorna um objeto PosixPath
+Path("pasta") / Path("subpasta") ## substitui o os.path.join e lida com o problma das barras de windows ou unix automaticamente. A barra separando os objetos é a mesma independendo do SO. 
+path= (Path("/home/thiagorbm/Documents/Python/linuxtips/python-base") /
+Path("pasta")).mkdir() ## criando uma pasta (de nome "pasta") juntando dois Paths
+filepath= Path(pathCompleto)
+filepath.write_text("linha filepath lib")
+filepath.read_text() ## sobrescreveu (usou "write")
+
+## o iterador (for line in open(filepath):....) lê os arquivos linha a linha e isso permite que arquivos muito grandes sejam lidos sem estourar a memoria do computador
