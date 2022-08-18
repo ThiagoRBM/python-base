@@ -45,10 +45,18 @@ operacoes= {"sum": numeros[0] + numeros[1],
             "div": numeros[0] / numeros[1]}
 
 path= os.path.abspath(os.curdir)
+# path= "/"
 filepath= os.path.join(path,"calc_history.log")
 timestamp= datetime.now().isoformat()
 usr= os.getenv('USER', "annonymous")
 
-print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {operacoes[operacao]}", file=open(filepath, "a"))
+try:
+    print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {operacoes[operacao]}", file=open(filepath, "a"))
+except PermissionError as e:
+    ## erro de permissão caso o arquivo esteja em pasta para a qual não temos permissão. Reprodução do erro na linha 47 ao invés da 48
+    print(str(e))
+    print("Resultado não armazenado.")
+    sys.exit(4)
+    
 
 print(operacoes[operacao])
