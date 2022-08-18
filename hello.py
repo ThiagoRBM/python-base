@@ -10,12 +10,22 @@ args= {"lang" : None,
         "count" : None}
 
 for arg in sys.argv[1:]:
-    key, value= str(arg).split(sep="=")
+    print(arg)
+
+    # EAFP
+    try:
+        key, value= str(arg).split(sep="=")
+    except ValueError as e:
+        # TODO: logging
+        print(str(e)) ## nesse caso era para usar "=" como separador e a pessoa usou outra coisa
+        print("Tente usar --key=value")
+        sys.exit(1)
+
     key= key.lstrip("-").strip()
     value= value.strip()
     if key not in args.keys():
             print(f"Argumento: `{key.lstrip('-')}` não reconhecido")
-            sys.exit()
+            sys.exit(2)
     args[key]= value
     #print(arg)
 #print(args)
@@ -47,6 +57,12 @@ msg= {"en_US" : "Hello, World!",
         "es_SP" : "Hola, Mundo!",
         "fr_FR" : "Bonjour, Monde!"}
 
-mensagem= f"{msg[current_language]}\n"
+# EAFP
+try:
+    mensagem= f"{msg[current_language]}\n"
+except:
+    print(f"Língua escolhida: {args['lang']}")
+    print(f"Línguas disponíveis: {list(msg.keys())}")
+    sys.exit(3)
 
 print(f"{mensagem * count}")
