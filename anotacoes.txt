@@ -684,3 +684,81 @@ filepath.write_text("linha filepath lib")
 filepath.read_text() ## sobrescreveu (usou "write")
 
 ## o iterador (for line in open(filepath):....) lê os arquivos linha a linha e isso permite que arquivos muito grandes sejam lidos sem estourar a memoria do computador
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 3 tratamentos de erros com exceptions
+
+traceback informa que aconteceu um erro na chamada mais recente. Não é bom deixar isso chegar a quem usa o programa porque pode até indicar falha de segurança ou expor variáveis que não é bom mostrar.
+
+No python existem duas formas de lidar com erros:
+	1. LBYL (Look Before You Leap): verificar antes de tentar fazer algo. ## import os
+## os.path.exists("caminho/aquivo") ## verificar se o arquivo existe.
+	LBYL tem temp ode execução variável e se o processamento estiver muito carregado, pode demorar um tempo para ser executado. 
+	RACE CONDITION pode ser um problema se dois programas acessarem o mesmo arquivo ao mesmo tempo (por exemplo apaga um arquivo que é usado por outro). Esse problema pode ser perigoso se usado por exemplo em bancos de dados. LBYL não é a melhor forma de tratar erros.
+
+	2. EAFP (Easy To Ask Forgiveness than Permission): primeiro faz as coisas e depois trata os erros. Tem menos verificações e complexidade algoritmica menor. Ao invés de colocar if para testar tudo, usar try e except.
+	try:
+		ação # podem ser feitas várias coisas dentro de um mesmo bloco try
+	except: ## bare except
+		print("mensagem...")
+		sys.exit(1)
+
+	## Bare except coleta qualquer erro. Se alguma ação dentro do bloco try der errado, o bare except vai informar a mesma coisa. Os erros devem ser pensados individualmente. Para isso, o except deve especificar os tipos de erros que podem ocorrer em um bloco try. O python tem diversos tipos de erros por padrão (exmplo, FileNotFoundError, ZeroDivisionError, AttributeError)
+
+	try:
+		ação 1
+		ação 2
+		ação 3
+	except FileNotFoundError:
+		print("[erro] arquivo não encontrado")
+		sys.exit(1)
+	except ZeroDivisionError:
+		print("[erro] divisão por zero")
+		sys.exit(2)
+	except AttributeError:
+		print("[erro] objeto não tem o atributo X")
+
+	### o erro pode ser capturado em um objeto e fica mais fácil mostrar qual foi ele
+
+# criar arquivo com nomes (zsh) e apagar
+echo "thiago" >> names.txt && echo "maria" >> names.txt && echo "joao" >> names.txt
+rm names.txt
+
+#no python:
+
+	try:
+		names=open("names.txt").readlines()
+	except FileNotFoundError as e: ## é possível colocar várias exceções no mesmo except entre parêneteses. Não necessariamente é necessário printar algo. Outras ações podem ser feitas dentro da exception (como retry). No bloco try ainda pode ser usado finally após o retry. Ele executa independente de haver erro (else pode ser usado e só executa caso não haja erro)
+		print(f"{str(e)}")
+		sys.exit(1)
+
+# após o try é possível "estourar" (raise) erros específicos (disponíveis no python por padrão) ou criados por nós:
+
+	vars(__builtins__) ## para ver os erros
+
+	try:
+		raise RunTimeError("Ocorreu um erro") ## erro geral
+	except Exception as e:
+		print(str(e))
+		
