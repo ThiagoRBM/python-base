@@ -30,30 +30,37 @@ if func not in permitidas:
     sys.exit(1)
 
 if func == "new":
-    arg_dict= {}
-    
-    if not arguments[1:]:
-        print("Fornecer uma tag para a entrada.")
-        arg_dict["tag"]= input("Digite a tag: ").strip()
-        print("Fornecer um texto para a entrada.")
-        arg_dict["text"]= input("Digite o texto: ").strip()
-
-    else:
-        for i in arguments[1:]:
-            key,value= i.split("=")
-            arg_dict[key]=value
-    
-    if "tag" not in list(arg_dict.keys()) or "text" not in list(arg_dict.keys()):
-        print(f"Usar argumentos 'tag' e 'text'.")
-        print(f"Argumentos usados: {arg_dict.keys()}")
-        sys.exit(2)
+    while True:
+        arg_dict= {}
         
-    with open(filepath, "a") as file_:
-        for i in arg_dict:
-            file_.writelines(f"{i}: {arg_dict[i]}\n")
-        file_.write("." * 78 + "\n")
-        file_.write("\n")
-        print(f"informações salvas em {filepath}")
+        if not arguments[1:]:
+            print("Fornecer uma tag para a entrada.")
+            arg_dict["tag"]= input("Digite a tag: ").strip()
+            print("Fornecer um texto para a entrada.")
+            arg_dict["text"]= input("Digite o texto: ").strip()
+
+        else:
+            for i in arguments[1:]:
+                key,value= i.split("=")
+                arg_dict[key]=value
+        
+        if "tag" not in list(arg_dict.keys()) or "text" not in list(arg_dict.keys()):
+            print(f"Usar argumentos 'tag' e 'text'.")
+            print(f"Argumentos usados: {arg_dict.keys()}")
+            sys.exit(2)
+            
+        with open(filepath, "a") as file_:
+            for i in arg_dict:
+                file_.writelines(f"{i}: {arg_dict[i]}\n")
+            file_.write("." * 78 + "\n")
+            file_.write("\n")
+            print(f"informações salvas em {filepath}")
+
+        novo_post= input("Deseja adicionar mais uma entrada? [sim/nao]\n")
+        if novo_post.strip().lower() == "sim":
+            continue 
+        elif novo_post.strip().lower() == "nao":
+            break
 
 if func == "read":
     arg_dict= {}
