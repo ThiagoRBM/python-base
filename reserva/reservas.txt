@@ -1,0 +1,4 @@
+DATA:2022-08-21T08:44:54.678391,nome_cliente:Rafaella,dias:0.5,quarto:1,total:250.0,
+DATA:2022-08-21T08:55:14.056495,nome_cliente:Thiago,dias:3,quarto:2,total:600.0,
+DATA:2022-08-21T09:36:55.263181,nome_cliente:Joana,dias:2,quarto:3,total:200.0,
+DATA:2022-08-21T10:02:43.984632,nome_cliente:Joana,dias:12,quarto:4,total:600.0,

@@ -1,0 +1,5 @@
+codigo,nome,preço
+1,Suite Master,500
+2,Quarto Familia,200
+3,Quarto Single,100
+4,quarto Simples,50
