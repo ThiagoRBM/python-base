@@ -762,3 +762,319 @@ rm names.txt
 	except Exception as e:
 		print(str(e))
 		
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 4 gravando logs
+
+Geralmente são guardados logs dos programas para ter um suporte bom.
+Além da stdout e stdin, existe uma outra interface, chamada stderr.
+É uma interface virtual para ond vão os erros. O que é impresso no stout (tela principal do usuário) são mensagens para humanos lerem.
+Mensagens de log (debugging, auditoria, erros, etc) são mandadas para o stderr. As mensagens do stderr podem ser redirecionadas para outros lugares.No LINUX, pode ser usado o comando 2&> para redirecionaro stderr gerado por um programa para um arquivo. No python existe uma biblioteca que facilita o que fazer com as mensagens de erro:
+
+import logging
+
+#logging # root logger (objeto com vários métodos)
+
+logging.critical("deu problema geral")
+logging.error(dru problema geral) # mostra na tela, erro padrão
+
+## ao trabalhar com logs nao usar f strings. Se usa a interpolação ("mensagem %s", str(variavel))
+
+## os logging tem níveis (level). 
+	0 = NOTSET (nao tem), 
+	10 = DEBUG (mostra só para programadores), 
+	INFO = 20 (informacoes uteis independente de publico), 
+	WARNING = 30 (informacoes para informar algo ao usuario, como alguma coisa que mudou, mas nao necessariamente significa erro)
+	ERROR = 40 (erro causado pelo usuário)
+	CRITICAL = 50 (erro que afetou todos os usuário)
+
+logging.debug("mensagem pro dev") # nao aparece para o usuario
+logging.info("mensagem geral para usuarios") # nao aparece para o usuario
+logging.warning("aviso que nao causa erro")
+logging.error("erro do usuario")
+logging.critical("afeta todos os usuarios")
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 5 exercício algoritmos (sem cóidgo, apenas exemplo)
+
+
+aula 6 condicionais ternárias e inlines
+
+Truthy e Falsy:
+Alguns objetos não booleanos tem métodos que os permitem ser avaliados como True or False (exemplo, objetos vazios como lista False, objetos com conteúdo, como listas, True).
+
+if []:
+	print("of")
+
+if [1,2,3]:
+	print("ok")
+
+## forma ternária: expressar uma condicional em uma única linha:
+n1=1
+n2=9
+if n2 > n1:
+	## forma normal
+	valor= "ok"
+
+valor= "ok" if n2 > n1 else "nok" ## forma ternária, precisa do valor default (else)
+
+print("ok" if n2 > n1 else "nok") ## a ternária não precisa ser usada só com atribuições
+
+help("symbols")
+help("**=")
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 7 repeticoes com for e while
+
+# "lista materializada" ocupa espaço do tamanho dela na memória. Ocupam muito espaço (quanto mais elementos, mais espaço na memória porque os elementos são armazenados)
+# listas materializadas podem ser substituídas por objetos geradores.
+
+lista= [1,2,3,4,5,6] # lista materializada
+lista= range(1,7) # objeto gerador (no range, adicionar mais 1 valor ao fim, é não inclusivo). No caso do range, apenas 3 elementos são armazenados: start, next e stop, independente da quantidade de iterações nele.
+
+dentro de loops podem existir as palavras chaves:
+	continue # quando chega nela a iteração volta para o começo ou vai para a próxima linha do código
+	break # quando chega nela o loop terminal
+
+Em caso de while loops, tomar cuidado para não criar um loop infinito.
+
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+ #######################################################################
+
+ aula 8 exercícios iteracoes, textos, inputs, arquivos
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+DIA 4
+
+aula 1 Funcoes uteis embutidas no Python - builtin
+
+type(sum) ## builtin function
+id(sum) ## as funcoes tem uma id para serem acessadas
+sum? ## ver o help da funcao
+sum.__ ## e apertar tab, ver métodos que existem na funcao as vezes não é possível ver porque podem ter sido escritas em C (as builtin)
+
+import os
+os.getenv.__code__ ## mostra um objeto que armazena o codigo da funcao compitaldo
+
+## funcoes no python sao objetos (assim como int, chr e etc)
+valor = os.getenv
+valor("LANG")
+valor.__code__ ## o objeto valor rescebeu os atributos da os.getenv
+type(valor)
+
+# "no python funcoes sao cidadaos de primeira classe": funcoes podem ser usadas como qualquer outro objeto.
+# podem ser colocadas dentro de dicionarios, colocadas dentro de outras funcoes e etc.
+
+dicS= {'sum':sum}
+dicS['sum']
+dicS
+
+## dentro do python temos duas categorias de funcao:
+# builtin = funcoes que ja carregam com o pytho (e.g. print, open)
+# stdlib = funcoes que vem com o python mas precisam ser importadas (e.g. os, sys)
+
+####################### funcoes builtin
+
+numeros=[1,2,3,4,5]
+sum(numeros)
+max(numeros)
+min(numeros)
+len(numeros) # emojis podem ocupar mais de 1 espaço e atrapalhar o len
+reversed(numeros) # retorna um iterador que reverte
+
+for i in reversed(numeros):
+	print(i)
+
+list(reversed(numeros))
+tuple(reversed(numeros))
+
+sorted(numeros)
+sorted("Banana") ## sorted funciona com letras (maiusculas e minusculas)
+
+## funcoes para do paradigma funcional
+
+texto= "thiago20biologo01brasilia88"
+numeros=""
+for letra in texto:
+## maneira normal (procedural ou imperativa)
+	if letra.isdigit():
+		numeros=numeros+letra
+
+filter(str.isdigit,texto) ## retorna objeto filter, que é um iterável e pode ser convertido em lista
+list(filter(str.isdigit,texto))
+"".join(list(filter(str.isdigit,texto)))
+
+## filter compara cada elemento do objeto e compara com uma condicao e retorna o que for True. Entao o numero de elementos pode ser menor do que a a quantidade inicial.
+
+list(filter(str.islower,"Thiago"))
+
+## no map recebemos o objeto de volta
+
+nomes=["fulano","ciclano"]
+up=[]
+for nome in nomes:
+	up.append(nome.upper())
+
+map(str.upper,nomes) # retorna um objeto iteravel
+list(map(str.upper,nomes))
+
+numeros=([5,2,3,1,4],[1,2,3],[5,5,6])
+list(map(sum,numeros))
+
+all([1,True,False]) ## retorna True se TODOS os elementos sao True
+all([]) ## all de uma lista vazia é True
+
+any([1,True,False]) ## retorna True se PELO MENOS UM elemento é True
+any([]) ## any de lita vazia é False
+
+nomes=["fulano", "ciclano", "beltrano"]
+for nome in nomes:
+## pode dar erra caso haja elementos repetidos
+	print(nomes.index(nome),nome)
+
+list(enumerate(nomes))
+
+for index,nome in enumerate(nomes):
+	print(index,nome)
+
+for index,nome in enumerate(nomes,start=2):
+	print(index,nome)
+
+colunas= ["nome", "sobrenome"]
+nomes= ["fulano","silva"] 
+
+zip(colunas,nomes) ## retorna um objeto tipo zip (iteravel). 
+## zip junta duas listas
+
+list(zip(colunas,nomes))
+dict(zip(colunas,nomes))['sobrenome']
+colunas=["nome","sobrenome"]
+dados=(["fulano","silva"],["ciclano","gomes"],["beltrano","sousa"])
+
+for dado in dados:
+	print(dict(zip(colunas,dado)))
+
+[dict(zip(colunas,dado)) for dado in dados]
