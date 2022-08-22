@@ -1078,3 +1078,85 @@ for dado in dados:
 	print(dict(zip(colunas,dado)))
 
 [dict(zip(colunas,dado)) for dado in dados]
+
+dir(__builtin__)
+
+####################### funcoes biblioteca padrao
+
+help("modules")
+import random
+random.random()
+random. # + tab
+## quando os objetos de uma funcao sao MAIUSCULAS: em geral sao constantes. Quando a PRIMEIRA LETRA é maiúscula, geralmente é uma classe. Quando tem parênteses, é uma função (um objeto "callable"). Se minúscula sem parênteses é só um objeto mesmo.
+
+random.randint(1,10)
+
+cores=["red","green","blue"]
+random.choice(cores) ## pegar um valor aleatório dentro de uma lista
+random.sample(cores,2) ## sorteia X valores de uma lista ou EMBARALHA a lista caso o numero de valores sorteados seja igual ao numero de valores nela
+random.sample(cores,len(cores))
+random.shuffle(cores) ## shuffle altera A PROPRIA LISTA INICIAL
+
+import itertools
+itertools. # + tab
+
+import itertools as it
+it. # + tab
+
+it.cycle("ABCD") ## "gerador de informação"
+for index,item in enumerate(it.cycle("ABCD")):
+	print(item) ## loop infinito
+	if index > 10:
+		break
+
+it.repeat("thiago",10) ## pode ser colocado uma FUNCAO para repetir
+list(it.repeat("thiago",10))
+
+numeros= [1,2,3,4,5]
+it.accumulate(numeros)
+list(it.accumulate(numeros)) ## retorna as somas progressivas
+sum(numeros) # retorna apenas o resultado final
+
+it.product("ABC",repeat=2) ## gera combinacoes
+list(it.product("ABC",repeat=2))
+
+it.permutations("ABC") ## gera as permutacoes possiveis
+list(it.permutations("ABC"))
+
+it.combinations("ABC") ## gera as combinacoes possiveis
+list(it.combinations("ABC"))
+
+it.groupby? # no ipython
+
+import functools as ft
+myprint=ft.partial(print,sep="---") ## cria uma funcao parcial em cima de outra funcao, preenchendo argumentos da funcao por "padrao" na nova funcao
+print("thiago","aaa", sep="---")
+myprint("thiago","aaa") ## com myprint nao preciso colocar sempre o sep no print
+
+import statistics as st
+numbers= [1,2,2,5,10,12]
+st.mean(numbers)
+st.median(numbers)
+
+import uuid # Universal Unique ID
+
+uuid. # + tab existe vários, geralmente se usa o 4
+uuid.uuid4() ## codigo em hash cada bloco vai ter um significado
+
+import getpass
+
+getpass. # + tab
+
+senha= getpass.getpass("Digite a senha") ## nao aparece a senha no terminal mas NAO ENCRIPTA A SENHA
+
+## bilioteca smtplib é usada para enviar emails. Ela usa o protocolo smtp (procurar pelo protocolo smtpfc).
+## Esse protocolo requer algumas chaves para funcionar:
+
+mensagem= """ From: email@server.com
+To: destino@server.com, outro@serve.com
+Subject: Assunto do email
+
+mensagem para ser enviada
+""" ## outros dados podem ser colocados, mas esses são os nec3ssários
+Ver arquivo smtp.py
+
