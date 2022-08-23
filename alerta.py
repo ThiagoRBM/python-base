@@ -12,24 +12,35 @@ Script que pergunta ao usuário a temperatura atual e o índice de umidade do ar
 
 import sys
 
-while True:
 
+def reads_input():
+
+    """Recebe informações do usuário e retorna um dicionário com 2 keys."""
+    climate_dict= {}
+    climate=["temp", "umid"]
+    message=["Digite a temperatura (°C): ",
+                "Digite a umidade: "]
     try:
-        temp= float(input("Digite a temperatura (°C): ").strip())
-        umid= float(input("Digite a umidade: ").strip())
+        for i , data in enumerate(climate):
+            climate_dict[climate[i]]= float(input(message[i]).strip())
     except ValueError as e:
         print(str(e)) ## dá para fazer isso com logging
         sys.exit(1)
+    return climate_dict
 
-    if temp >= 45:
+
+while True:
+    info= reads_input()
+
+    if info["temp"] >= 45:
         print("ALERTA!!! Perigo calor extremo")
-    elif temp > 30 and temp * 3 >= umid:
+    elif info["temp"] > 30 and info["temp"] * 3 >= info["umid"]:
         print("ALERTA!!! Perigo calor úmido")
-    elif temp >= 10 and temp <= 30:
+    elif info["temp"] >= 10 and info["temp"] <= 30:
         print("Condições normais")
-    elif temp >=0 and temp <10:
+    elif info["temp"] >=0 and info["temp"] <10:
         print("Frio")
-    elif temp < 0:
+    elif info["temp"] < 0:
         print("ALERTA!!! Frio extremo")
 
     if input("Deseja continuar?" 
