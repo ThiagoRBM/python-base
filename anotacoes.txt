@@ -1357,3 +1357,169 @@ soma(vals[0],vals[1])
 soma(*vals)
 soma(*vals1)
 soma(**vals2)
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 5 Escopos e argumentos mutáveis e coringas
+
+O próprio NOME de arquivos .py são namespaces e o python aberto no mesmo diretório que um arquivo .py está pode abrir ele com o comando import.
+Exemplo:
+
+echo 'nome="thiago"' >> escopo.py  ## no terminal
+import escopo ## no python / ipython
+
+type(escopo)
+escopo. # tab
+escopo.nome ## chama a variável nome
+
+from escopo import nome ## importa um objeto de dentro do namespace
+nome
+
+# namespace bulitin carrega junto com o python
+# namespace global é tudo o que está no script
+
+echo 'numero = 1' >> escopo.py
+echo 'print(globals())' >> escopo.py
+## print(globals()) ## mostra todas as variáveis do namespace global. Ele é baseado em dicionário (como todos os objetos no python) e funcoes sao buscadas com base nas hashes do globals()
+python3 escopo.py ## rodando o arquivo escopo.py
+
+# No python é possível criar namespaces dentro de namespaces.
+# Funcoes tem escopo LOCAL (arquivos.py, escopo GLOBAL). No fim de uma funcao o escopo LOCAL acaba (no escopo GLOBAL, ele termina no fim do arquivo.py). Variáveis criadas dentro do escopo local existem só DENTRO dele por padrão e somem depois da execução (por padrão). Para ver o escopo LOCAL, usar print(locals())
+
+## funcao dentro de funcao pode chamar inner function ou closure. Elas estão dentro do "locals" da funcao que está dentro.
+## caso uma variável não existe em uma funcao interna (ou seja, no locals da funcao interna), ele busca no escopo envolvente da funcao que contem a funcao interna.
+## para chamar uma variável global para dentro de uma funcao, usar 'global variavel' ou usar globals["variavel"] (esse segundo é o melhor jeito)
+## parâmetros de funcao fazem parte do seu escopo local.
+## valores defaut de funcao sao atribuidos na assinatura dela.
+## funcoes que recebem objetos mutaveis (set, dict, list) precisam de atencao. Objetos mutaveis VAZIOS nos argumentos, resulta em acumulacao.
+
+def adiciona(valor, lista=[])
+	lista.append(valor)
+	return list
+
+adiciona(4)
+adiciona(4)
+adiciona(4)
+adiciona(4)
+adiciona(5)
+print(adiciona(6)) ## isso aqui vai retornar uma lista com TODOS os valores adicionados. Se não for para isso acontecer, a lista vazia tem que ser passada em todas as vezes que a funcao for chamada OU, DE PREFERENCIA, ser colocada como None como default e checar se ela foi ou não passada dentro da funcao.
+
+## argumentos coringa em funcoes. Quando nao se sabe quais e nem quantos
+## argumentos serao passados. Exemplo de funcao assim é print, que "printa"
+## tudo o que for passado (lista, str, int e quantos forem passadas)
+## o "coringa" é passado com o asterísco (o padrão é *args).
+## vários argumentos são passados e empacotados NA FUNCAO.
+
+def funcao(*args):
+	print(args)
+
+### ai com base no que foi recebido, a funcao faz as coisas. Qualquer coisa NAO nomeada que for passada para a funcao sera ingerido.
+funcao("thiago",1,True,[])
+
+## para argumentos NOMEADOS, é usado DOIS asteriscos (nome padrao e **kwargs)
+def funcao(*args,timeout=10,**kwargs)
+funcao("thiago",1,True,[],timeout=90,nome="alfredo",cidade="sao paulo")
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 6 funcoes lambda
+
+# são funcoes EM GERAL não nomeadas (anônimas), de uso único e são passadas para dentro de outras (mas podem ser nomeadas, apesar de não ser considerada uma prática "padrão" / "boa prática").
+
+# palavra chave lambda argumento: acao (pode ter mais de um argumento, nesse caso separado por vírgulas, mas apenas uma ação / expressão)
+# funcao lambda nao tem return.
+
+
+## exemplos (mas elas podem ser usadas em qualquer funcao):
+
+nomes= ['fulano', 'silva', 'joana', 'joao', 'jaqueline']
+list(filter(lambda nome: len(nome) == 4,nomes))
+list(filter(lambda nome: nome[0] == "j",nomes))
+print(sorted(nomes, key= lambda nome: nome.count("o")))
+print(list(map(lambda nome: "hello " + nome, nomes)))
+
+(lambda: 1 + 1)()
+(lambda a: a + 1)(10)
+
