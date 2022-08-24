@@ -5,13 +5,28 @@ import os
 import sys
 from datetime import datetime
 
-while True:
+path= os.path.abspath(os.curdir)
+# path= "/"
+filepath= os.path.join(path,"calc_history.log")
+timestamp= datetime.now().isoformat()
+usr= os.getenv('USER', "annonymous")
 
-    operacao= None
-    n= [None, None]
+operacao= None
+n= [None, None]
+
+operacoes= {"sum": lambda a, b: a + b,
+            "sub": lambda a, b: a - b,
+            "mul": lambda a, b: a * b,
+            "div": lambda a, b: a / b}
+
+while True:
 
     if len(sys.argv[1:]) == 0:
         operacao= input("Digite uma operacao: ")
+        if operacao not in operacoes.keys():
+            print(f"Operacoes permitidas: {permitidas}")
+            print(f"Operacao requisitada: `{operacao}`")
+            sys.exit(1)
         n[0]= input("Digite um numero: ")
         n[1]= input("Digite outro numero: ")
     else:
@@ -23,7 +38,7 @@ while True:
         if not num.replace(".","").isdigit():
             print("Digitar apenas numeros para realizar a operação")
             print(f"Foi figitado: `{num}`")
-            sys.exit(1)
+            sys.exit(2)
         else:
             if "." in num:
                 numeros.append(float(num))
@@ -34,27 +49,10 @@ while True:
     if len([operacao]) + len(numeros) != 3:
         print("Número de argumentos inválidos")
         print("ex: sum 5 5 ")
-        sys.exit(2)
-
-    permitidas= ["sum","sub","mul","div"]
-    if operacao not in permitidas:
-        print(f"Operacoes permitidas: {permitidas}")
-        print(f"Operacao requisitada: `{operacao}`")
         sys.exit(3)
         
-    operacoes= {"sum": lambda a,b: a + b,
-                "sub": lambda a,b: a - b,
-                "mul": lambda a,b: a * b,
-                "div": lambda a,b: a / b}
-
-    resultado= operacoes[operacao](numeros[0],numeros[1])
+    resultado= operacoes[operacao](numeros[0], numeros[1])
     
-    path= os.path.abspath(os.curdir)
-    # path= "/"
-    filepath= os.path.join(path,"calc_history.log")
-    timestamp= datetime.now().isoformat()
-    usr= os.getenv('USER', "annonymous")
-
     try:
         print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {resultado}", file=open(filepath, "a"))
         print("Resultado armazenado em 'calc_history.log'.")
