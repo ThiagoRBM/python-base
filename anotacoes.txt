@@ -1678,6 +1678,30 @@ Executar com debugger Run > Start debugging. Debung console. Painel esquerdo apa
 #######################################################################
 #######################################################################
 
-aula 9 sistema de imports python
+aula 9 / 10 sistema de imports python
+Video no youtube "reutilizado": https://youtu.be/_XszPRFHQQ4
 
+Mecanismo de import provido pela import lib.
+O python busca libs no sys path:
 
+python -c "import sys; print(sys.path)"
+	1. A string vazia (""), que é o primeiro item, representa o diretório atual. Se não está lá:
+	2. O segundo intem é a Standard Library (vem com a instalação do python). Se não está nela:
+	3. O terceiro item é o user path (cada usuário tem um). Se não está:
+	4. O quarto item é o system path.
+	
+Se não estiver em nenhum deles, ele retorna um erro. Dá para incluir direitórios novos se for o caso, mas não é o recomendável.
+
+Ambientes virtuais  evitam que haja conflitos entre bibliotecas do python. Uma cópia do python é criada em cada venv.
+É uma boa prática criar um venv para cada projeto. Ambientes virtuais podem ser apagados sem afetar a instalação de outros venvs ou o python do sistema.
+Para cada projeto e ambiente virtual, é bom ter um arquivo .txt: "requirements.txt", onde ficam as libs e recomendável ter as versões delas (pinar as dependências). Com a lista feita, usamos pip install -r requirements.txt.
+
+Gestão de dependência pode ficar caótica. Exemplos:
+	Conflito com bibliotecas do SO. Pacote dephell
+	Conflito entre pacotes dentro da mesma venv.
+	Problema de segurança (hackeamento, nesse caso exite a opcao pip install --require-hashes).
+
+	Solucoes para ajudar nisso (padronizacao): PEP 517 e PEP 518
+	Ferramentas pip install pip-tools (gera um hash de um pacote e e exporta em um arquivo txt com as versões, pacotes e hashes). Mas não segue as PEPs.
+
+	Poetry : gestor de dependências que segue PEP 517 e PEP 518. Foi inspirado no cargo (gestor de pacotes do RUST).
