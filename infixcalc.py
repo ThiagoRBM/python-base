@@ -42,11 +42,13 @@ while True:
         print(f"Operacao requisitada: `{operacao}`")
         sys.exit(3)
         
-    operacoes= {"sum": numeros[0] + numeros[1],
-                "sub": numeros[0] - numeros[1],
-                "mul": numeros[0] * numeros[1],
-                "div": numeros[0] / numeros[1]}
+    operacoes= {"sum": lambda a,b: a + b,
+                "sub": lambda a,b: a - b,
+                "mul": lambda a,b: a * b,
+                "div": lambda a,b: a / b}
 
+    resultado= operacoes[operacao](numeros[0],numeros[1])
+    
     path= os.path.abspath(os.curdir)
     # path= "/"
     filepath= os.path.join(path,"calc_history.log")
@@ -54,7 +56,7 @@ while True:
     usr= os.getenv('USER', "annonymous")
 
     try:
-        print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {operacoes[operacao]}", file=open(filepath, "a"))
+        print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {resultado}", file=open(filepath, "a"))
         print("Resultado armazenado em 'calc_history.log'.")
     except PermissionError as e:
         ## erro de permissão caso o arquivo esteja em pasta para a qual não temos permissão. Reprodução do erro na linha 47 ao invés da 48
@@ -63,7 +65,7 @@ while True:
         sys.exit(4)
 
     print()
-    print(operacoes[operacao])
+    print(resultado)
     print()
 
     cont= input("Continuar a calcular? Enter para sim, qualquer outra tecla para não\n").strip().lower()
