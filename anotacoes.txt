@@ -1817,3 +1817,45 @@ No VSCode, em um arquivo MArkDown: shift + ctrl + P abre o preview
 aula 11
 
 Projeto: Criando a estrutura de pastas, build e install do projeto 
+
+git checkout -b "nome" ## cria uma branch com o nome escolhido
+git checkout -b "issue-10" ## criei uma branch com o nome da issue que estava mexendo
+
+## quando der o push em uma branch, o que subir não vai para a branch mainova e não vai ter conflito.## dessa maneira o push vai para a aba "pull requests"
+
+## para ver qual python está rodando: which python
+## para ver os caminhos onde pacotes são buscado: import sys ; sys.path
+## atarvés do sys.path, o python consegue importar arquivos .py qye estejam no mesmo diretório.
+## isso acontece independente de existirem venvs ou não.
+## cuidado com circular imports.
+## "pacotes" sao pastas com modulos que dependem uns dos outros (e preferencialmente tem um arquivo "__init__.py).
+## em projetos, nao se costuma chamar arquivos de sciprt e sim de modulos.
+## em modulos nao e necessario ter o shebang no começo (com excecao de executaveis).
+## um repositótio é a pasta principal onde ficam o ou os pacotes de um projeto
+## (nela tem coisas como a README, licença e outras coisas que não são código)
+## a pasta __pycache__ armazena as informações de import. Tem arquivos ".pyc"
+## cache de compilação do python, ficam em bytecode
+## em versões atuais do python, ele já consegue importar modulos de dentro de pacotes
+## que estiverem no mesmo diretorio (repositorio) automaticamente. Em versoes
+## mais antigas era necessario ter um arquivo __init__.py.
+## Porém pode ser bom continuar tendo o arquivo porque permite mais customizações.
+## Ele é um arquivo vazio, só com esse nome.
+
+## o modulo de "entry point" para um programa python chama __main__.py
+## ele faz com que um pacote seja transformado em um modulo executavel.
+## o __init__.py inicializa o programa (e pode alterar alguns comportamentos e
+## ter hacks) e o __main__.py é o arquivo principal.
+## quando o programa for chamado, vai ser inicializado pelo init e ser executado
+## pelo main.
+
+## com o main é possível rodar no terminal:
+python -m dundie
+## se ele for deletado, não será
+
+## além do main e init, é importante ter um arquivo de "build" que ajuda no empacotamente
+## ele fica na raiz do REPOSITÓRIO (mesmo lugar do README) e chama setup.py
+## O setup.py é transformado para outro formato e colocado no binário do python.
+## nele ficam informações importantes para que o programa possa ser instalando.
+## a ferramenta mais tracional é usando o setuptools.
+
+## PAREI EM 1 HORA
