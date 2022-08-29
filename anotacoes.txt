@@ -1927,3 +1927,155 @@ git rebase origin/HEAD
 if __name__ == "__main__":
     main() ## ao final da definicao da main reconhece quando o comando
     ## foi digitado chamando o python ou nao. É importante. Quando a funcao é chamada sem especificar o python, o nome será o nome da funcao e nao main. Quando é chamada com o python -m o nome é main.
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 13 gestao de dependencias  makefile
+
+dependencias: pacotes que nao vem com o pytho por padrao. Importante para que quem trabalhe com o projeto nao precise ficar instalando manualmente cada pacote.
+
+a maneira oficial é colocar a lista de dependencias no setup.py, em install_requires na forma de lista (no extras_requires são dependências que podem ser instaladas caso a pessoa queira instalar, na forma de dicionario, por exemplo dependencias de teste e desenvolvimento).
+
+pip install -e '.[dev]' ## para instalar as dependencias extras (nao obrigatorias), especificar dentro dos colchetes, as keys do dicionario.
+(ou pip install -e .[dev] no bash). Especificar uma versão = "pinar".
+Colocar os requirements no setup.py é o padrão mas tem como colocar também de outras formas, como em arquivos .txt. Isso é muito usado e funciona.Esses arquivos .txt são usados por outras ferramentas de checagem de dependências (como o dependabot do github). É possível criar no arquivo setup.py uma funcao que leia os arquivos .txt e os use, ao inves de ficar repetindo os nomes das dependências em vários arquivos. Nesse caso a instalação pode ser feita com:
+
+pip install -r requirements.test.txt
+pip install -r requirements.dev.txt
+
+makefile é um arquivo na raiz do projeto (não é específico de python, surgiu com o C). Serve para criar arquivos. Ao rodar, arquivos são gerados, mas no python é usado para automatizar comandos.
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 14 Doctests, Pytest e Decorators
+
+A boa prática é que o __init__.py fique vazio o máximo possível.
+__main__.py é o entrypoint, mas o código não precisa estar nele, já que tem como importar módulos.
+
+A parte de CLI (que intercepta comandos e etc) pode ser colocada em outro arquivo (exemplo cli.py).
+
+## ver onde o python procura modulos (relembrando) python -m site
+
+## teste funcional ou de integracao imita os passos do usuario e o resultado obtido
+## no teste unitario sao testadas as funcoes especificamente e uma a uma.## pytest é uma lib usada para escrever os testes.
+## ela procura testes e os executa automaticamente (ao inves de precisarmos testar uma a uma manualmente).
+## para que as funcoes sejam testaveis, precisam ter um return e é bom que possam ser rodadas isoladamente.
+
+## doctest são testes "embutidos" na docstring, que podem ser rodados para verificar funcionamento da funcao. Tem um ">>>" na doctring, com um teste e um resultado esperado embaixo (ver pacote dundie). Abaixo, o pytest
+
+## para usar o pytest: arquivos py que comecem com "load" e dentro deles, funcoes que comecem com "test".
+## para rodar os testes: no diretório raiz, rodar "pytest"
+## pytest -v ## para resultado verboso
+## pytest -vv ## para resultado mais verboso
+## pytest -vv -s ## para rodar com debuggers
+## como os testes serão feitos várias vezes, é uma boa ideia colocar ele no Makefile
+## pytest tem plugins bons, um deles é o pytest-watch (pip install pytest-watch)
+## esse plugin faz com que para cada alteracao o pytest rode automaticamente. Dá para colocar o comando para rotar o pytest watch no makefile
+
+## decorators alteram o comportamento de uma funcao alterando o minimo possivel o codigo (decorator não é exclusivo do python).
+## decorators usam a possibilidade de funcoes serem de "primeira classe", ou seja, que possam ser passadas como argumento em outras funcoes. Decorator é uma funcao que é aplicada em outra funcao. "Uma funcao que internamente intercepta outra funcao e altera o comportamento dela".
+
+def soma(a,b):
+	return a + b
+
+soma(1,2)
+
+def dobra(f):
+	def manipuladora(a,b):
+		return f(a*2, b*2)
+	return manipuladora
+
+soma= sobra(soma) ## jeito original de usar
+soma
+
+@dobra ## jeito mais usado atualmente, com o "arroba" e a funcao modificadora em sima da original
+def soma(a, b):
+	return a + b
+
+soma(1, 2) ## o codigo da funcao soma original nao foi modificado, mas a funcao dela foi. Ela pode ser usada em qualquer funcao que tenha os mesmos parametros.
+
+@dobra ## jeito mais usado atualmente, com o "arroba" e a funcao modificadora em sima da original. Decorators podem ser acumulados um em cima do outro.
+def mult(a, b):
+	return a * b
