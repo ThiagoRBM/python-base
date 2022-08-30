@@ -1905,7 +1905,7 @@ aula 12
 
 ## entry points de CLI
 
-Issue #8. Atualmente o programa (que foi intalado) roda com o comando
+Issue #8. Atualmente o programa (que foi instalado) roda com o comando
 python3 -m dundie, mas o objetivo agora é que ele rode apenas com "dundie". Executar ele direto sem especificar a linguagem e isso é feito com binário.
 O padrão é que se use o mesmo nome do python3 -m dundie (usado depois do m) para chamar o programa.
 No aquivo setup.py, existe o "entry_points", um dicionário com os nomes dos entrypoints e pacotes que fazem parte deles. Existem vários tipos de entrypoints. Chamar no CLI é um console scripts.
@@ -1973,7 +1973,7 @@ if __name__ == "__main__":
 
 aula 13 gestao de dependencias  makefile
 
-dependencias: pacotes que nao vem com o pytho por padrao. Importante para que quem trabalhe com o projeto nao precise ficar instalando manualmente cada pacote.
+dependencias: pacotes que nao vem com o python por padrao. Importante para que quem trabalhe com o projeto nao precise ficar instalando manualmente cada pacote.
 
 a maneira oficial é colocar a lista de dependencias no setup.py, em install_requires na forma de lista (no extras_requires são dependências que podem ser instaladas caso a pessoa queira instalar, na forma de dicionario, por exemplo dependencias de teste e desenvolvimento).
 
@@ -2079,3 +2079,76 @@ soma(1, 2) ## o codigo da funcao soma original nao foi modificado, mas a funcao 
 @dobra ## jeito mais usado atualmente, com o "arroba" e a funcao modificadora em sima da original. Decorators podem ser acumulados um em cima do outro.
 def mult(a, b):
 	return a * b
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+aula 15 Unit, integration, configuracao Pytest e CI com github actions
+
+integration (ou functional) tests: imitam o usuario, em um programa de CLI, ele rodar o programa e espera a resposta. Se fosse site, ele "iria" ate o site e "clicaria" nos botoes.
+
+Por convencao os testes unitarios (funcao a funcao) ficam em uma pasta chamada tests e os de integracao, em uma chamada "integration"
+
+No integration test geralmente tem uma interface para executar, no caso de uma CLI, para rodar os comandos é necessário o shell do linux. Lib python subprocess.
+
+from subprocess import check_output
+check_output(["ls"]) ## roda o comando ls pelo python
+check_output(["ls"]).decode("utf-8").split("\n") ## transformando de binário para texto e arrumando
+
+check_output(["ls","-a"]).decode("utf-8").split("\n")
+
+## para testar, da para usar o pytest com mais de uma pasta:
+pytest -s -v tests integration  
+
+## tem como congiruar o pytest (ver site da lib) com arquivos especiais.
+E.g.: pytest.ini , pyproject.toml, setup.cfg
+## pyproject.toml é hoje o formato provavelmente mais usado. Configura várias ferramentas em um único arquivo.
+## tem como colocar "tags" em testes (testar so determinadas funcoes, so funcoes de alta, media ou baixa prioridade, teste específicos para diferentes sistemas operacionais e etc). As tags sao colocadas no arquivos conftest.py. O pytest tem hooks que sao usados para entender as tags.
+
+pytest -s -m "high" ## filtrar pelas tags
+pytest -s -m "unit and high" ## filtrar por duas tags
+pytest -s -m "unit or medium"
+
+## CI (ou Continuous Integration) do github é o github actions e o projeto vai ser configurado para que além dos testes locais (com make test e etc), so sejam feitos merge de pulls requests quando o github fizer testes e eles passem.
+## Isso é configura através de arquivos. Criar pasta .github na raíz. Dentro dela, uma outra chamada workflows. Os arquivos (.yml) que estiverem lá dentro serão passos do CI. Cada arquivo yml é um passo da CI.
+
