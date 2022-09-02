@@ -3,22 +3,38 @@
 import os
 import sys
 
+import logging
+
 #print(f"{sys.argv=}")
 #print(f"{sys.argv[1]=}")
+
+## BOILERPLATE (aula de logs)
+log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
+log = logging.Logger("thiago", log_level)
+ch = logging.StreamHandler()  # Console/terminal/stderr. Pode ser formatado
+ch.setLevel(log_level)
+fmt = logging.Formatter(
+    '%(asctime)s  %(name)s  %(levelname)s '
+    'l:%(lineno)d f:%(filename)s: %(message)s'
+)
+ch.setFormatter(fmt)
+log.addHandler(ch)
 
 args= {"lang" : None,
         "count" : None}
 
 for arg in sys.argv[1:]:
-    print(arg)
+    #print(arg)
 
     # EAFP
     try:
         key, value= str(arg).split(sep="=")
     except ValueError as e:
-        # TODO: logging
-        print(str(e)) ## nesse caso era para usar "=" como separador e a pessoa usou outra coisa
-        print("Tente usar --key=value")
+        log.error(
+            "Você usou %s, tente usar --key=value. Erro: %s",
+            arg,
+            str(e)
+        )
         sys.exit(1)
 
     key= key.lstrip("-").strip()

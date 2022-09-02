@@ -5,37 +5,39 @@ import os
 import sys
 from datetime import datetime
 
-path= os.path.abspath(os.curdir)
+path = os.path.abspath(os.curdir)
 # path= "/"
-filepath= os.path.join(path,"calc_history.log")
-timestamp= datetime.now().isoformat()
-usr= os.getenv('USER', "annonymous")
+filepath = os.path.join(path, "calc_history.log")
+timestamp = datetime.now().isoformat()
+usr = os.getenv('USER', "annonymous")
 
-operacao= None
-n= [None, None]
+operacao = None
+n = [None, None]
 
-operacoes= {"sum": lambda a, b: a + b,
-            "sub": lambda a, b: a - b,
-            "mul": lambda a, b: a * b,
-            "div": lambda a, b: a / b}
+operacoes = {
+    "sum": lambda a, b: a + b,
+    "sub": lambda a, b: a - b,
+    "mul": lambda a, b: a * b,
+    "div": lambda a, b: a / b
+}
 
 while True:
 
     if len(sys.argv[1:]) == 0:
-        operacao= input("Digite uma operacao: ")
+        operacao = input("Digite uma operacao: ")
         if operacao not in operacoes.keys():
             print(f"Operacoes permitidas: {permitidas}")
             print(f"Operacao requisitada: `{operacao}`")
             sys.exit(1)
-        n[0]= input("Digite um numero: ")
-        n[1]= input("Digite outro numero: ")
+        n[0] = input("Digite um numero: ")
+        n[1] = input("Digite outro numero: ")
     else:
-        operacao= sys.argv[1]
-        n= sys.argv[2:]
-        
-    numeros= []
+        operacao = sys.argv[1]
+        n = sys.argv[2:]
+
+    numeros = []
     for num in n:
-        if not num.replace(".","").isdigit():
+        if not num.replace(".", "").isdigit():
             print("Digitar apenas numeros para realizar a operação")
             print(f"Foi figitado: `{num}`")
             sys.exit(2)
@@ -45,16 +47,18 @@ while True:
             else:
                 print("int")
                 numeros.append(int(num))
-            
+
     if len([operacao]) + len(numeros) != 3:
         print("Número de argumentos inválidos")
         print("ex: sum 5 5 ")
         sys.exit(3)
-        
-    resultado= operacoes[operacao](numeros[0], numeros[1])
-    
+
+    resultado = operacoes[operacao](numeros[0], numeros[1])
+
     try:
-        print(f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {resultado}", file=open(filepath, "a"))
+        print(
+            f"{timestamp} / {usr}: {operacao} of {numeros[0]} and {numeros[1]} equals {resultado}",
+            file=open(filepath, "a"))
         print("Resultado armazenado em 'calc_history.log'.")
     except PermissionError as e:
         ## erro de permissão caso o arquivo esteja em pasta para a qual não temos permissão. Reprodução do erro na linha 47 ao invés da 48
@@ -66,11 +70,12 @@ while True:
     print(resultado)
     print()
 
-    cont= input("Continuar a calcular? Enter para sim, qualquer outra tecla para não\n").strip().lower()
+    cont = input(
+        "Continuar a calcular? Enter para sim, qualquer outra tecla para não\n"
+    ).strip().lower()
 
     if cont == "":
         sys.argv[1:] = []
         continue
     else:
         break
-

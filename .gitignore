@@ -1,2 +1,4 @@
 .venv
-anotacoes.txt
+dundie-rewards/
+__*
+*.log
