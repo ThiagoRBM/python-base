@@ -2381,7 +2381,10 @@ Não precisa usar com o subprocess.
 
 aula 20 TDD e Regex
 
+TDD = Test Driven Development. Antes de criar as funcoes para resolver problemas, primeiro se fazem testes.
+É interessante para o TDD deixar o pywatch rodando (make watch).
 
+PAREI EM 28 MINUTOS
 
 #######################################################################
 #######################################################################
