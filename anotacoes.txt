@@ -2483,7 +2483,7 @@ e adicao de pontos no projeto
 quando se trabalha com arquivos, pode acontecer de um teste interferir no outro
 (race condition). Algumas bibliotecas ajudam com isso, como a pytest-forked.
 
-PAREI EM 15 MINUTOS
+PAREI EM 1 hora e 6 MINUTOS
 
 #######################################################################
 #######################################################################
