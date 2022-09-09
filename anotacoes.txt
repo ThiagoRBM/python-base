@@ -2529,6 +2529,9 @@ quando se trabalha com arquivos, pode acontecer de um teste interferir no outro
 
 Aula 23 Documentacao e mkdocs
 
+É recomendado além do README.md, ter um arquivo CONTRIBUTING.md
+Parei em 19 minutos.
+
 #######################################################################
 #######################################################################
 #######################################################################
