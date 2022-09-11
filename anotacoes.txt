@@ -2529,8 +2529,15 @@ quando se trabalha com arquivos, pode acontecer de um teste interferir no outro
 
 Aula 23 Documentacao e mkdocs
 
-É recomendado além do README.md, ter um arquivo CONTRIBUTING.md
-Parei em 19 minutos.
+flake8-docstrings ajuda a conferir se tem documentacao em todas as funcoes e se elas segum as boas práticas. Além das funcões, é recomendado que todo MÓDULO tenha uma docstring também (lembrando: módulo é arquivo .py de um repositório). Esse pacote não gera as docstrings automaticamente (como por exemplo o blake procura fazer).
+
+É recomendado além do README.md, ter um arquivo CONTRIBUTING.md na raíz do projeto.
+
+Outra documentação que é interessante ter é a sobre o uso do programa. Uma ferramenta muito boa e usada é o mkdocs. Mkdocs usa markdown também (ecistem outras ferramentas, como sphinx, mas essa não usa markdown.
+
+mkdocs new
+mkdocs serve # cria pasta onde estará o site, em arquivos .md.
+mkdocs build --clean # após fazer o site, gera esse site em uma pasta site (arquivos css, fontes, pasta para cada página e etc). Essa pasta que é "deployada" em algum servidor, como o githubpages (pages.github.com), outra opção é o netlifly (tem uma versão free).
 
 #######################################################################
 #######################################################################
@@ -2574,3 +2581,6 @@ Parei em 19 minutos.
 #######################################################################
 #######################################################################
 #######################################################################
+
+Aula 24 Empacotamento, semantic version e distribuicao com twine
+
