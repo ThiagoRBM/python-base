@@ -2584,3 +2584,37 @@ mkdocs build --clean # após fazer o site, gera esse site em uma pasta site (arq
 
 Aula 24 Empacotamento, semantic version e distribuicao com twine
 
+semantic versioning: semver.org
+Major.Minor.Patch
+X.Y.Z
+Primeira versão (release) de qualquer programa é a 0.1.0
+Primeiro dígito: "MAJOR" e só muda quando houver alterações muito grandes. Que possam quebrar o uso. Por exemplo mudar nome de funcao, atributos de funcao e etc. É importante alterar o MAJOR caso a alteração seja grande, para não quebrar compatibilidade.
+Motivos de marketing também podem justificar alterações no Major (novo logo e etc).
+
+Segundo dígito: MINOR, houve alguma alteração, como inclusão de funcionalidade, mas NÃO EXISTE quebra compatibilidade.
+
+Terceiro dígito: PATCH, correção de bugs.
+
+testpypi.org: site para TESTE de pacotes
+cria token
+exporta o twine para o ambiente
+(export TWINE_PASSWORD=token gerado) ## nao tem problema expor esse token porque é para testes apenas
+exporta o username
+(export TWINE_USERNAME=__token__)
+env | grep TWINE ## variaveis exportadas
+## com essas duas variáveis, a lib consegue logar e enviar o pacote.
+
+Existem algumas formas de empacotar o projeto, uma delas é o formato .egg(um arquivo .tar e a pasta do projeto vai para lá). O formato mais atual é o wheel, com uma distribuição binária (deve estar nos requirements de dev).
+Para fazer a build:
+python setup.py sdist bdist_wheel (colocar no Makefile)
+
+## tem como fazer testes do build, para ver se funcionou direito.
+## por padrão só arquivos .py são incluídos e isso pode dar problema nos testes.
+## para isso o arquivo MANIFEST.in é criado na raíz
+
+Além da pasta build, uma pasta dist é gerada. A partir dela que o repositório vai ser publicado. Tem um arquivo .whl e um .tar.gz.
+Isso é feito com o twine.
+
+twine upload --repository testpypi dist/*
+# nao podem ter repositórios com nomes iguais
+ficou em: https://test.pypi.org/project/trbm-dundie/0.1.0/
