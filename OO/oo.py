@@ -49,3 +49,49 @@ def add_points(person, value):
 result = map(lambda person: add_points(person, 100), people)
 print("Resultado funcional:", list(result))
 print("Dados originais sem side effects:", people)
+
+## ORIENTACAO A OBJETOS
+
+
+# Definição da classe
+# pascalCase ou UpperCamelCase é a convenção de nomenclatura .Em caso de SIGLAS, colocar tudo em maiúsculo
+class Person:
+    """Represents a Person"""
+
+    # Atributos da classe
+    name = "Jim Halpert"
+    role = "Salesman"
+    balance = 100
+
+    # Métodos ou funções associadas
+    def add_points(person, value):
+        if person.role == "manager":
+            value *= 2
+        person.balance += value
+
+
+jim = Person()  # Instanciação de um objeto a partir da classe
+
+jim.add_points(500)  # Chamada de método associado
+
+print(jim.balance)  # Acesso a atributo
+
+print(Person.__dict__)  # a implementação da classe é um dicionário.
+
+pessoa1 = Person()
+pessoa2 = Person()
+
+print(pessoa1.name)
+print(
+    pessoa1.__dict__
+)  # as características da instância também tem os dados armazenados em um dicionário.
+print(pessoa2.name)
+
+
+# criacao de classes vazias
+class Obj:
+    ...
+
+
+class Obj:
+    pass
