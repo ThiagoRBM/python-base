@@ -2890,3 +2890,69 @@ A convenção é em toda vez que um método em uma classe, chamar de self.
 #######################################################################
 #######################################################################
 #######################################################################
+
+aula 29 4 pilares da OO abstração, herança, polimorfismo, encapsulamento
+
+1. Abstração. Capacidade de descrever objetos do mundo real e abstrair implementação. Coisas como tipos (str, int, etc), a implementação interna são abstraidos. Exemplo, classe fruta (não especifica qual fruta). Super classe. De preferência classes abstratas NÃO TEM instâncias (ou seja, objetos de preferência não são criados a partir delas).
+
+2. Herança. Criar uma classe material a partir de uma abstrata. Exemplo: tamarindo (uma fruta específica). Subclasse, classe derivada. Uma classe pode não ter nada dentro, com tudo sendo herdade de classes anteriores.
+from abc import ABC # ABC de Abstract Base Classe.
+
+class Fruit(ABC):
+	kingdom= "Planta"
+
+Herança múltipla. Usar mais de uma classe como base e herdar atributos delas. Pode ser útil em modelos de desenvolvimento como "mixins".
+
+
+3. Polimorfismo. Ligado a palavra "protocolo".
+"valor" in objeto  # objeto pode ser qualquer tipo que implementa `__contains__` . Indenpendente da forma de objeto, é possível aplicar operações nele desde que esteja de acordo com algum protocolo.
+No python o polimorfismo está baseada no Duck Typing: Se o objeto anda como um pato, parece um pato, faz quack como um pato, então, é um pato. A maioria das linguagens dinâmicas tem isso. Que é criar funções e que ela não se importe caso o objeto que a recebe tenha o protocolo.
+Usando *args na funcao, também é um polimorfismo.
+
+4. Encapsulamento. Capacidade de um objeto esconder sua implementação interna e expor apenas o que for conveninente. Tem estratégias para isso. Uma delas é a "convenção de nomes".
+Atributo iniciando com um anderline. Ele só pode ser acessado dentro da classe.
+Com DOIS underlines no começo, ele passa a ser privado e nem aparece com o dir(classe).
+Essa forma por convenção de nomenclatura não é tão usada (e os atributos privados praticamente não se usa).
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
