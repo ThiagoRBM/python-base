@@ -95,3 +95,64 @@ class Obj:
 
 class Obj:
     pass
+
+
+###
+
+
+class Fruit:
+    # data model, método dunder ou método mágico, self poderia ser substituído por qualquer nome, mas a convenção é chamar de self
+    # atributos imutáveis (str, int, float) podem ficar fora do init, mas os mutáveis, dentro.
+    def __init__(self, name, color):
+        self.name = name
+        self.color = color
+
+
+apple = Fruit(name="Apple", color="red")
+banana = Fruit("Banana", color="yellow")
+
+print(apple.name, apple.color)
+print(banana.name, banana.color)
+
+#### EXEMPLO DE USO (procedural, abaixo a classe):
+
+
+def heron(a, b, c):
+    perimeter = a + b + c
+    s = perimeter / 2
+    area = (s * (s - a) * (s - b) * (s - c))**0.5
+    return area
+
+
+triangulos = [
+    (3, 4, 5),
+    (5, 12, 13),
+    (8, 15, 17),
+    (12, 35, 37),
+    (3, 4, 5),
+    (5, 12, 13),
+    (8, 15, 17),
+    (12, 35, 37),
+]
+for t in triangulos:
+    print("A área do triângulo é: ", heron(*t))
+
+## COM CLASSE:
+
+
+class Triangle:
+
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def area(self):
+        perimeter = self.a + self.b + self.c
+        s = perimeter / 2
+        area = (s * (s - self.a) * (s - self.b) * (s - self.c))**0.5
+        return area
+
+
+triangle = Triangle(5, 12, 13)
+print(triangle.area())
