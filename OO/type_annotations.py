@@ -100,7 +100,7 @@ from dataclasses import dataclass
 class Pessoa2:
     pk: str
     name: str
-    points: int
+    points: int = 100  # passar valor default
 
 
 def funcao4(dados: Pessoa2):
