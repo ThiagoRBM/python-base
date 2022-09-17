@@ -3054,3 +3054,15 @@ Classes criadas vazia já vem por padrão com vários protocolos. Esses protocol
 #######################################################################
 #######################################################################
 
+Aula 32 python moderno, type annotations e dataclasses
+
+Python moderno permite o uso de type annotations (garantia de tipos). A partir de python 3.5, mas estabilizado em versões > 3.8. Modulo typing. O python NÃO FORÇA as type annotations
+Em variáveis "estáticas" raramente é necessário colocar anotação de tipos. Mas na definição de funções (assinatura), classes e métodos é bem interessante que seja feito. Porque não dá para saber se quem vai usar a função ou classe vai passar os argumentos certos. O código NÃO DEIXA de rodar se o tipo passado está errado. Mas as assinaturas de função indicam qual é o correto. A ferramenta mypy analisa se os tipos especificados estão sendo seguidos.Funciona como se fosse um linter: rodando ele no script que se deseja.
+
+## para rodar o arquivo sempre que salvar: ls type_annotations.py | entr -c -s "mypy type_annotations.py && ./type_annotations.py"
+
+## outras ferramentas ajudam a seguir as type annotations, uma é a beartype, que funciona com decorators. Em tempo de execução ela verifica os tipos.
+
+## TYPE ALIAS. Quando a tipagem começar a ficar complexa, é possível criar uma estrutura (diferente de classe) de tipo.
+
+## DATACLASS é um decorator que substitui o método __init__ para criar a classe.
