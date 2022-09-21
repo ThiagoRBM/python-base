@@ -3323,8 +3323,10 @@ Existem categorias de comandos SQL (equivalente aos tipos de comandos do python:
 	5. DCL, Data Control Language, controla quem tem acesso ao banco de dados.
 
 # ferramenta que ajuda a modelar banco de dados app.dbdesigner.net, roda no navegador
+# apesar de ser possível escrever queries e manipular os bancos de dados de forma "crua"
+# existem libs que facilitam isso, usando ORM, que ajudam as classes criadas no python
+# já tenham métodos de consulta SQL embutidos e ser possível consultar as informações direto pelas classes
 
-PAREI EM 51 MINUTOS
 
 #######################################################################
 #######################################################################
